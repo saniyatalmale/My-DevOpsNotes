@@ -1,0 +1,280 @@
+# Jenkins Pipelines: Cheat Sheet (Scripted vs Declarative)
+
+## 🔧 Pipeline Types Comparison
+
+| Feature                    | Scripted Pipeline                         | Declarative Pipeline                          |
+|---------------------------|-------------------------------------------|-----------------------------------------------|
+| Syntax Style              | Groovy-based scripting                    | Structured DSL (`pipeline {}`)               |
+| Learning Curve            | Higher, flexible                         | Easier, beginner-friendly                     |
+| Best For                  | Dynamic logic, complex CI flows           | Simpler CI/CD, team collaboration            |
+| Agent Definition          | `node {}`                                | `agent any`                                   |
+| Error Handling            | `try-catch-finally`                      | `post { success/failure }`                   |
+| Parallel Execution        | Manual via `parallel {}`                | Built-in with `parallel`                     |
+| Tools Integration         | Manual                                     | Supports `tools {}` block                    |
+| Environment Variables     | `env.VAR_NAME`                            | `environment {}` block                       |
+
+---
+
+## ✅ Declarative Pipeline Example
+```groovy
+pipeline {
+    agent any
+
+    environment {
+        APP_ENV = 'production'
+    }
+
+    parameters {
+        string(name: 'VERSION', defaultValue: '1.0', description: 'Release version')
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo "Building version ${params.VERSION} in ${env.APP_ENV}"
+            }
+        }
+
+        stage('Parallel Test') {
+            parallel {
+                stage('Unit Tests') {
+                    steps {
+                        echo 'Running unit tests'
+                    }
+                }
+                stage('Integration Tests') {
+                    steps {
+                        echo 'Running integration tests'
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            echo 'Pipeline failed.'
+        }
+        always {
+            cleanWs()
+        }
+    }
+}
+```
+
+---
+
+## 🔄 Scripted Pipeline Example
+```groovy
+node {
+    env.APP_ENV = 'production'
+
+    try {
+        stage('Build') {
+            echo "Building version ${params.VERSION} in ${env.APP_ENV}"
+        }
+
+        stage('Parallel Test') {
+            parallel(
+                'Unit Tests': {
+                    echo 'Running unit tests'
+                },
+                'Integration Tests': {
+                    echo 'Running integration tests'
+                }
+            )
+        }
+    } catch (err) {
+        echo "Build failed: ${err}"
+        currentBuild.result = 'FAILURE'
+    } finally {
+        cleanWs()
+    }
+}
+```
+
+---
+
+## ❓ Common Questions
+
+### Q1: Can I use Groovy logic in Declarative?
+✔️ Yes, via `script {}` block.
+
+### Q2: Can I mix both types?
+✔️ Yes. You can include `script {}` in Declarative.
+
+### Q3: How to define functions in Declarative?
+Inside `script {}` block:
+```groovy
+script {
+    def sayHello(name) {
+        echo "Hello, $name"
+    }
+    sayHello('Ganraj')
+}
+```
+
+### Q4: Dynamic Parallel in Scripted?
+```groovy
+def stagesMap = [:]
+['Chrome', 'Firefox'].each { browser ->
+    stagesMap[browser] = {
+        node {
+            echo "Running tests on ${browser}"
+        }
+    }
+}
+parallel stagesMap
+```
+
+### Q5: How do I pass variables between stages in Declarative?
+Declare them outside stages in a `script` block:
+```groovy
+def appVer = ""
+
+pipeline {
+    agent any
+    stages {
+        stage('Set Version') {
+            steps {
+                script {
+                    appVer = "2.1"
+                }
+            }
+        }
+        stage('Use Version') {
+            steps {
+                script {
+                    echo "App version is ${appVer}"
+                }
+            }
+        }
+    }
+}
+```
+
+### Q6: Why does Jenkins fail even if the script looks fine?
+- Syntax/runtime errors in Scripted pipeline are caught **only at runtime**.
+- Declarative has **pre-check validation**.
+- Missing agent, improper quotes, and indent issues often cause failure.
+
+### Q7: What is `currentBuild`?
+A built-in object in Scripted Pipelines:
+```groovy
+currentBuild.result = 'FAILURE'
+echo currentBuild.fullDisplayName
+```
+
+### Q8: How to run a stage only on a specific branch?
+```groovy
+stage('Deploy') {
+    when {
+        branch 'main'
+    }
+    steps {
+        echo 'Deploying to production...'
+    }
+}
+```
+
+### Q9: How to add manual approval in a stage?
+```groovy
+stage('Approval') {
+    steps {
+        input message: 'Deploy to Prod?', ok: 'Yes, go!'
+    }
+}
+```
+
+### Q10: How to stop pipeline based on a condition?
+```groovy
+script {
+    if (env.BUILD_NUMBER.toInteger() % 2 == 0) {
+        error("Even-numbered builds are not allowed.")
+    }
+}
+```
+
+### Q11: Can I share functions across pipelines?
+Yes, using **Shared Libraries**.
+Structure:
+```
+vars/
+  sayHello.groovy
+src/
+  org/demo/Helper.groovy
+```
+Usage:
+```groovy
+@Library('my-shared-lib') _
+sayHello('Ganraj')
+```
+
+### Q12: How to trigger another pipeline?
+```groovy
+build job: 'deploy-app', parameters: [string(name: 'VERSION', value: '1.0.0')]
+```
+
+---
+
+## 🔗 Real Jenkinsfile Demo for GitHub
+
+Place this file as `Jenkinsfile` in the root of your GitHub repo:
+```groovy
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'Building app...'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Build Complete'
+        }
+    }
+}
+```
+
+---
+
+## 🧭 CI/CD Diagram Flow
+
+```plaintext
+  Developer Pushes Code (GitHub)
+               |
+               v
+        Jenkins Webhook Trigger
+               |
+               v
+        Jenkinsfile Executed:
+           ├── Checkout
+           ├── Build
+           ├── Test
+           └── Deploy (optional)
+               |
+               v
+        Post actions: Notify, Cleanup, Report
+```
+
+---
+
+## 📚 Final Tip
+Use Declarative for maintainable pipelines, Scripted for flexibility. Mix both wisely!
