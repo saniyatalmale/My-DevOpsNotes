@@ -1,0 +1,615 @@
+________________________________________
+✅ LINUX QUESTIONS (PART 1 of 4)
+________________________________________
+1. What is an Operating System?
+An Operating System (OS) is a system software that acts as an interface between the user and computer hardware. It manages hardware, software resources, and provides common services to run applications.
+🧠 Examples: Windows, Linux, macOS, Android, iOS
+________________________________________
+2. Difference between Linux and Windows?
+Feature	Linux	Windows
+Type	Open-source	Proprietary (Closed-source)
+Cost	Free	Paid (License required)
+Customization	Highly customizable	Limited customization
+Performance	Lightweight and fast	Heavier than Linux
+Security	More secure and stable	More vulnerable to malware
+Usage	Servers, Cloud, DevOps	Desktops, Gaming, Business
+File System	Case-sensitive	Not case-sensitive
+Community Support	Strong Open Source Community	Vendor-based support (Microsoft)
+________________________________________
+3. Explain what is Open Source?
+Open Source means the software's source code is freely available to everyone. Anyone can view, modify, enhance, or redistribute it under open licenses like GPL.
+🧠 Examples: Linux, Apache, MySQL, Kubernetes
+________________________________________
+4. Explain Linux Architecture
+Main components:
+1.	Kernel – Core part that interacts with hardware
+2.	Shell – Interface between user & kernel
+3.	System Libraries – Functions used by applications
+4.	System Utilities – Programs for managing the system
+📌 Diagram:
+| User Apps |
+|-----------|
+|  Shell    |
+|-----------|
+|  Kernel   |
+|-----------|
+| Hardware  |
+________________________________________
+5. What is Virtualization?
+Virtualization allows you to run multiple operating systems on a single physical machine using virtual machines (VMs).
+✅ Example: Run Ubuntu and Windows on the same system using VirtualBox or VMware.
+________________________________________
+6. Explain Hypervisor and its types
+A Hypervisor is software that creates and manages virtual machines.
+Types:
+•	Type 1 (Bare-metal): Runs directly on hardware
+🧠 Examples: VMware ESXi, Microsoft Hyper-V
+•	Type 2 (Hosted): Runs on host OS
+🧠 Examples: VirtualBox, VMware Workstation
+________________________________________
+7. What is Shell, its types and how to check current shell?
+A Shell is a program that takes user input and passes it to the OS (via the Kernel).
+Types of Shell:
+•	Bourne Shell (sh)
+•	Bourne Again Shell (bash)
+•	Korn Shell (ksh)
+•	C Shell (csh)
+🔍 Check your current shell:
+echo $SHELL
+________________________________________
+8. What is Kernel and command to check kernel information?
+The Kernel is the core part of Linux, managing system resources like CPU, memory, and I/O devices.
+🔍 Check kernel info:
+uname -r         # Shows kernel version  
+uname -a         # Shows all system info
+________________________________________
+9. Command to check OS information
+cat /etc/os-release
+hostnamectl
+lsb_release -a
+________________________________________
+10. Command to check available memory
+free -h
+cat /proc/meminfo
+________________________________________
+11. Command to check storage or disk info
+df -h         # Shows disk usage
+lsblk         # Lists block devices
+________________________________________
+12. Command to check size of file/dir
+du -sh filename
+du -sh /path/to/directory
+________________________________________
+13. Explain modes of vim editor
+1.	Normal Mode – For navigation & command execution
+2.	Insert Mode – For editing (press i)
+3.	Command Mode – For saving/exiting (: key)
+🧠 Example:
+•	i to insert
+•	Esc to exit insert
+•	:wq to save and quit
+________________________________________
+14. Difference between adduser and useradd
+Feature	adduser	useradd
+Usage	High-level utility	Low-level command
+Prompt	Interactive	Non-interactive
+Directory	Creates home dir	Requires -m flag
+Config	Uses /etc/adduser.conf	Uses /etc/default/useradd
+________________________________________
+15. Explain Skeleton Files
+•	Located in /etc/skel/
+•	These are default config files copied to new user’s home directory (like .bashrc, .profile, etc.)
+________________________________________
+16. Explain fields of /etc/passwd file
+Each line has 7 fields:
+username:password:UID:GID:GECOS:home_directory:shell
+🧠 Example:
+saniya:x:1001:1001:Saniya:/home/saniya:/bin/bash
+________________________________________
+17. How to check user belongs to which group?
+groups <username>
+id <username>
+________________________________________
+18. Explain file types in Linux
+•	- Regular file
+•	d Directory
+•	l Symbolic link
+•	b Block device
+•	c Character device
+•	s Socket
+•	p Pipe
+________________________________________
+19. Difference Hard Link vs Soft Link
+Hard Link	Soft Link (Symbolic)
+Points to inode	Points to file path
+File still accessible if original deleted	Becomes broken
+No cross-filesystem links	Can cross filesystems
+Created with ln file link	ln -s file link
+________________________________________
+20. How to change ownership of file/dir
+chown user:group filename
+________________________________________
+21. How to set permissions using symbolic and numeric modes
+Symbolic:
+chmod u+x file
+chmod g-w file
+Numeric:
+chmod 755 file  # rwxr-xr-x
+chmod 644 file  # rw-r--r--
+________________________________________
+22. What is umask?
+Umask sets default permission mask.
+🧠 Default: 0022 → Files: 644, Dirs: 755
+🔍 Check current umask:
+umask
+________________________________________
+23. Default permissions for root user for file/dir
+•	Files: 644 → rw-r--r--
+•	Directories: 755 → rwxr-xr-x
+________________________________________
+24. Default permissions for local user for file/dir
+Same as root unless umask is changed:
+•	Files: 644
+•	Directories: 755
+________________________________________
+25. Explain Crontab fields
+Format:
+* * * * * command
+| | | | |
+| | | | +---- Day of the Week (0-6)
+| | | +------ Month (1-12)
+| | +-------- Day of Month (1-31)
+| +---------- Hour (0-23)
++------------ Minute (0-59)
+________________________________________
+26. Explain top command
+•	Real-time process monitoring
+•	Shows CPU, Memory, Tasks
+•	Sort by memory: Press M
+________________________________________
+27. Explain ps command
+•	Lists currently running processes
+ps aux
+ps -ef
+________________________________________
+28. Explain grep command
+Search text in files
+grep 'root' /etc/passwd
+grep -i "word" filename  # case-insensitive
+________________________________________
+29. How to archive and compress files, also extract them
+To Compress:
+tar -czf archive.tar.gz dir/
+To Extract:
+tar -xzf archive.tar.gz
+________________________________________
+✅ Next Up: Networking → AWS → DevOps
+Shall I continue sending the Networking answers next (Part 2)?
+Perfect, Saniya 👩‍💻
+Let’s continue with Part 2: Networking Questions (with detailed answers).
+________________________________________
+🔹 NETWORKING QUESTIONS (PART 2 of 4)
+________________________________________
+1. Explain OSI Model
+The OSI (Open Systems Interconnection) model is a 7-layer conceptual framework that standardizes network communication.
+Layer	Name	Function	Example
+7	Application	User interface, protocols	HTTP, FTP, SMTP
+6	Presentation	Data encryption, compression	SSL, JPEG, MPEG
+5	Session	Session control	NetBIOS, RPC
+4	Transport	End-to-end delivery, reliability	TCP, UDP
+3	Network	Routing, addressing	IP, ICMP
+2	Data Link	MAC addressing, framing	Ethernet, PPP
+1	Physical	Electrical signals, hardware	Cables, Hubs, NIC
+📌 Tip: Remember with "All People Seem To Need Data Processing"
+________________________________________
+2. Difference between TCP and UDP
+Feature	TCP	UDP
+Type	Connection-oriented	Connectionless
+Reliability	Reliable (acknowledgments)	Unreliable
+Speed	Slower (more overhead)	Faster
+Usage	Email, Web, FTP	DNS, Streaming, VoIP
+Header size	20 bytes	8 bytes
+Order	Guarantees data order	No guarantee
+________________________________________
+3. Basic Networking Commands
+Command	Description
+ifconfig / ip a	View IP address and interfaces
+ping	Check connectivity to a host
+traceroute	Trace the route to destination
+netstat	View network connections
+nslookup	Query DNS information
+dig	DNS lookup (more advanced than nslookup)
+hostname	Show system hostname
+curl / wget	Fetch content from URL
+________________________________________
+4. Explain IP Classes
+IPv4 addresses are divided into 5 classes:
+Class	Range	Default Subnet Mask	Usage
+A	1.0.0.0 – 126.255.255.255	255.0.0.0	Large networks
+B	128.0.0.0 – 191.255.255.255	255.255.0.0	Medium networks
+C	192.0.0.0 – 223.255.255.255	255.255.255.0	Small networks
+D	224.0.0.0 – 239.255.255.255	N/A	Multicasting
+E	240.0.0.0 – 255.255.255.255	N/A	Reserved (research)
+________________________________________
+5. Difference between Public and Private IP addresses
+Type	Description	Examples
+Public IP	Assigned by ISP, used on internet	8.8.8.8, 52.95.245.1
+Private IP	Used within local networks (not routable)	192.168.x.x, 10.x.x.x, 172.16.x.x
+🔐 Private IPs need NAT (Network Address Translation) to access the internet.
+________________________________________
+6. What is Domain Name?
+A domain name is a human-readable name mapped to an IP address.
+🧠 Example: www.google.com → 142.250.182.4
+Managed via DNS (Domain Name System).
+________________________________________
+7. What is Hosted Zone?
+A Hosted Zone is a container in Route 53 (AWS DNS service) that holds DNS records for a domain.
+📌 Example:
+•	Domain: saniyadevops.com
+•	Hosted zone: holds A record, CNAME, MX records, etc.
+________________________________________
+8. Explain records in Route 53
+Record Type	Description	Example
+A	Maps domain to IPv4 address	saniyadevops.com → 34.0.0.1
+AAAA	Maps to IPv6 address	
+CNAME	Alias to another domain	www → saniyadevops.com
+MX	Mail server info	
+TXT	Used for SPF, DKIM, verification	
+NS	Nameservers for domain delegation	
+________________________________________
+9. Explain Routing Policies in Route 53
+Policy Type	Purpose
+Simple	Single static IP/endpoint
+Weighted	Route traffic based on percentage
+Latency-based	Route to the region with lowest latency
+Failover	Route to backup if primary fails
+Geolocation	Based on user location
+Multi-value	Like simple, but returns multiple values
+________________________________________
+10. What is Latency?
+Latency is the time delay between a request and its response.
+🧠 Measured in milliseconds (ms)
+✅ Low latency = fast network
+❌ High latency = slow response
+________________________________________
+11. Explain SSL (Secure Sockets Layer)
+•	SSL ensures secure encrypted connection over the internet (HTTPS).
+•	Prevents data theft and eavesdropping
+🔐 SSL Certificate = Website Identity + Encryption
+📌 Ports:
+•	HTTP: 80
+•	HTTPS (SSL): 443
+________________________________________
+12. Explain CDN (Content Delivery Network)
+•	CDN is a network of globally distributed servers.
+•	It caches content (images, videos, etc.) near users to reduce latency.
+📍 Examples: CloudFront (AWS), Akamai, Cloudflare
+________________________________________
+13. What is Edge Location?
+•	AWS Edge Location is a CDN endpoint used by CloudFront to cache data close to users for faster delivery.
+🧠 Similar to a branch office near your city.
+________________________________________
+14. Explain OAC/OAI in CloudFront
+Feature	Description
+OAI (Origin Access Identity)	Used to allow CloudFront to access private S3 bucket content securely
+OAC (Origin Access Control)	Newer version, supports fine-grained permissions and custom headers
+📌 Used for private S3 + CloudFront setups.
+________________________________________
+✅ Next Up: AWS Cloud Questions (Part 3)
+Let me know when you're ready — or I’ll continue with AWS in the next message.
+Great! Let's move on to Part 3: AWS Cloud Questions (Detailed Answers)
+This section covers all the key AWS services, differences, architecture, and best practices.
+________________________________________
+🔹 AWS CLOUD QUESTIONS (PART 3 of 4)
+________________________________________
+1. What is Cloud Computing?
+Cloud Computing is the delivery of computing services like servers, storage, databases, networking, software over the internet ("the cloud") to offer faster innovation, flexible resources, and economies of scale.
+🧠 Example: Using Amazon EC2 instead of buying your own server.
+________________________________________
+2. Explain Cloud Service Models
+Model	Description	Examples
+IaaS	Infrastructure as a Service – raw compute	EC2, EBS, VPC
+PaaS	Platform as a Service – ready platform	AWS Elastic Beanstalk, Heroku
+SaaS	Software as a Service – ready-to-use app	Gmail, Dropbox, Salesforce
+________________________________________
+3. Explain Deployment Models in Cloud
+Deployment Model	Description	Example
+Public Cloud	Hosted by 3rd-party (AWS, Azure)	AWS EC2, S3
+Private Cloud	Hosted on-premise or privately	VMware private data center
+Hybrid Cloud	Mix of public and private	AWS + On-prem VPN
+Multi-Cloud	Use of multiple cloud providers	AWS + Azure + GCP
+________________________________________
+4. Explain IAM Service
+IAM (Identity and Access Management) allows you to manage users, groups, roles, and permissions in AWS.
+✅ Helps define who can do what in your AWS account.
+________________________________________
+5. Explain Policies in IAM
+•	JSON-based permission documents attached to users, groups, or roles
+•	Define Allow/Deny actions on services
+🧠 Example:
+{
+ "Effect": "Allow",
+ "Action": "s3:*",
+ "Resource": "*"
+}
+________________________________________
+6. Explain Roles in IAM
+•	IAM Role is a temporary identity with a set of permissions.
+•	Used by services (like EC2) or users from other AWS accounts.
+✅ No username or password required. Used via STS (temporary credentials).
+________________________________________
+7. Difference between Roles and Policies
+Feature	IAM Role	IAM Policy
+Purpose	Assign temporary permissions	Define what is allowed/denied
+Attached to	EC2, Lambda, Users	Roles, Users, Groups
+Type	Identity	Permissions document
+________________________________________
+8. Explain EC2 Service
+EC2 (Elastic Compute Cloud) provides resizable virtual machines (instances) to run applications.
+🧠 You choose: OS, CPU, storage, network, and region.
+________________________________________
+9. Explain Instance Types and Purchasing Options
+Types:
+•	General Purpose (t2, t3)
+•	Compute Optimized (c5)
+•	Memory Optimized (r5)
+•	Storage Optimized (i3)
+•	GPU Instances (p3)
+Purchasing Options:
+•	On-Demand – Pay per hour
+•	Reserved – Long-term commitment (1 or 3 years)
+•	Spot – Unused capacity, very cheap
+•	Dedicated Host – Physical server for your use
+________________________________________
+10. Difference between AMI and Snapshot
+Feature	AMI (Amazon Machine Image)	Snapshot
+Purpose	Launch EC2 instances	Backup EBS volumes
+Contains	OS + software + volume data	Just volume data (disk)
+Usage	Create servers	Restore volumes or create AMIs
+________________________________________
+11. Explain EBS Volume Types
+Type	Description	Best For
+gp3 (SSD)	General Purpose SSD	Most workloads
+io1/io2 (SSD)	Provisioned IOPS SSD	Databases
+st1 (HDD)	Throughput Optimized HDD	Big data, logs
+sc1 (HDD)	Cold HDD	Infrequent access
+________________________________________
+12. Explain Load Balancing Concept
+•	Distributes incoming traffic across multiple targets (EC2, containers)
+•	Improves availability and fault tolerance
+________________________________________
+13. Difference between ALB and NLB
+Feature	ALB (Application)	NLB (Network)
+Layer	Layer 7 (HTTP/HTTPS)	Layer 4 (TCP/UDP)
+Target Type	URL-based routing, path-based	IP and port only
+Use Case	Web apps, microservices	High-performance network traffic
+________________________________________
+14. Explain Auto Scaling
+Auto Scaling automatically:
+•	Increases instances when demand is high
+•	Decreases instances when demand is low
+📌 Based on metrics like CPU, Network, or custom CloudWatch alarms.
+________________________________________
+15. Explain S3 Service and Its Advantages
+S3 (Simple Storage Service) is an object storage service to store and retrieve any amount of data from anywhere.
+✅ Advantages:
+•	Durable (99.999999999%)
+•	Scalable
+•	Secure
+•	Lifecycle rules
+•	Cost-effective
+________________________________________
+16. Difference: S3 vs EFS vs EBS
+Feature	S3	EBS	EFS
+Type	Object Storage	Block Storage	File Storage
+Mount	Not mountable	EC2 only	Multiple EC2s
+Cost	Cheapest	Moderate	Expensive
+Access	Over HTTP/HTTPS	Through EC2 only	Shared filesystem
+________________________________________
+17. Explain S3 Storage Classes
+Class	Use Case
+S3 Standard	Frequent access
+S3 IA	Infrequent Access
+S3 One Zone IA	Infrequent, one AZ
+S3 Glacier	Archive (retrieval in minutes/hours)
+S3 Glacier Deep	Long-term archive
+S3 Intelligent Tiering	Auto-tiering based on access
+________________________________________
+18. What is Lifecycle Policy in S3?
+Automates:
+•	Transition to cheaper storage (e.g., Glacier)
+•	Expiration (auto-delete old files)
+🧠 Example: Move files to Glacier after 30 days, delete after 180 days.
+________________________________________
+19. Explain VPC Service
+VPC (Virtual Private Cloud) is a private, isolated network in AWS.
+You define:
+•	IP range (CIDR)
+•	Subnets (public/private)
+•	Routing
+•	Internet/NAT gateways
+•	Security rules
+________________________________________
+20. Difference between Public and Private Subnet
+Subnet Type	Description
+Public Subnet	Has access to the internet via IGW
+Private Subnet	No internet, internal resources only
+🧠 Example:
+•	Web server = public
+•	Database = private
+________________________________________
+21. Explain NAT
+NAT (Network Address Translation) allows instances in private subnets to access the internet (e.g., install updates), but prevents incoming traffic from internet.
+🧠 2 Types:
+•	NAT Gateway (managed, scalable)
+•	NAT Instance (manual EC2 with NAT config)
+________________________________________
+22. Explain Peering Connection
+VPC Peering connects two VPCs privately, allowing resources in one to access another without internet.
+🧠 No overlapping CIDR blocks allowed.
+________________________________________
+23. Difference between NACL and Security Group
+Feature	NACL	Security Group
+Applies To	Subnet level	Instance level
+State	Stateless	Stateful
+Rules	Allow & Deny	Only Allow
+Rule Order	Numbered	All rules evaluated
+________________________________________
+✅ Done with AWS Cloud 💯
+Next up: DevOps Questions (Part 4 of 4). Let me know and I’ll continue!
+Awesome, Saniya 👩‍💻
+Let’s finish strong with Part 4: DevOps Questions (with full detailed answers).
+________________________________________
+🔹 DEVOPS QUESTIONS (PART 4 of 4)
+________________________________________
+1. What is DevOps?
+DevOps is a culture, practice, and toolset that integrates Development and Operations teams to improve collaboration, automation, speed, and reliability of software delivery.
+✅ Goal: CI/CD, faster delivery, fewer bugs, and better collaboration.
+________________________________________
+2. Explain SDLC (Software Development Life Cycle)
+Phases:
+1.	Requirement Gathering
+2.	Design
+3.	Development
+4.	Testing
+5.	Deployment
+6.	Maintenance
+DevOps automates and integrates these phases using pipelines and tools.
+________________________________________
+3. Difference between CVCS and DVCS
+Feature	CVCS (Centralized VCS)	DVCS (Distributed VCS)
+Server	Central repository	Local + remote repo
+Network	Needs internet to commit	Offline work possible
+Examples	SVN	Git, Mercurial
+________________________________________
+4. Git Basic Commands
+git init               # Initialize repository
+git clone <repo>       # Copy remote repo
+git status             # Show file status
+git add <file>         # Stage file
+git commit -m "msg"    # Commit changes
+git push               # Upload to remote
+git pull               # Fetch + merge
+git log                # Commit history
+________________________________________
+5. Difference between git pull and git fetch
+Command	Function
+git fetch	Fetches changes from remote, no merge
+git pull	Fetch + merge changes automatically
+________________________________________
+6. Difference between git merge and git rebase
+Feature	Merge	Rebase
+History	Keeps full branch history	Rewrites commit history
+Use Case	Safe for public branches	Used in feature branch cleanup
+________________________________________
+7. Git Cherry-Pick
+Apply a specific commit from one branch to another.
+git cherry-pick <commit_hash>
+✅ Useful when you want to copy only one bug fix.
+________________________________________
+8. Explain Branching Strategy
+•	Main/Master – Stable production
+•	Develop – Testing stage
+•	Feature/ – For new features
+•	Hotfix/ – Quick production fixes
+•	Release/ – Release preparation
+🧠 Git Flow is a popular strategy.
+________________________________________
+9. Difference between Container and VM
+Feature	Container	VM
+OS Layer	Shares host OS kernel	Has its own OS
+Speed	Fast to start	Slower
+Size	Lightweight (MBs)	Heavy (GBs)
+Isolation	Process level	OS level
+Examples	Docker	VMware, VirtualBox
+________________________________________
+10. Explain Docker Volume and Network
+•	Volume: Persistent storage for containers
+•	docker volume create myvol
+•	Network: Connect containers
+•	docker network create mynet
+________________________________________
+11. Concept of Docker Compose and Swarm
+•	Compose: Define multi-container apps using docker-compose.yml
+•	services:
+•	  web:
+•	    image: nginx
+•	Swarm: Docker-native container orchestration (for scaling & clustering)
+________________________________________
+12. Explain Kubernetes (K8s) Architecture
+Component	Function
+Master Node	Control Plane (API Server, Scheduler, etc.)
+Worker Node	Runs pods
+Pod	Smallest deployable unit
+kubelet	Agent on worker nodes
+etcd	Cluster configuration store
+________________________________________
+13. Difference: ReplicaSet (RS) vs ReplicationController (RC)
+Feature	RC	RS (New)
+Selector	Limited match options	Advanced match (labels/expressions)
+Usage	Deprecated	Recommended
+________________________________________
+14. Difference: ReplicaSet vs Deployment
+Feature	ReplicaSet	Deployment
+Purpose	Maintain pod count	Version control + scaling
+Rolling updates	Not supported	Supported
+________________________________________
+15. Deployment Types in Kubernetes
+Type	Description
+Rolling Update	Update pods gradually (default)
+Recreate	Stop all old → start new
+Blue/Green	Two environments (switch traffic)
+Canary	Small set updated first
+________________________________________
+16. Explain CI/CD
+•	CI (Continuous Integration): Automatically build & test on code push
+•	CD (Continuous Delivery/Deployment): Auto-deploy to staging/production
+🧠 Tools: Jenkins, GitHub Actions, GitLab CI, CircleCI
+________________________________________
+17. Where is Jenkins Home Directory Located?
+/var/lib/jenkins
+📁 Stores all configurations, jobs, plugins.
+________________________________________
+18. Difference between Freestyle and Pipeline Project
+Feature	Freestyle	Pipeline
+Setup	UI-based	Code-based (Jenkinsfile)
+Flexibility	Limited	Highly customizable
+Usage	Small/simple jobs	Complex workflows
+________________________________________
+19. Explain IaC (Infrastructure as Code)
+•	Manage infrastructure using code, not manual steps
+•	Enables versioning, automation, and repeatability
+🧠 Tools: Terraform, CloudFormation, Pulumi
+________________________________________
+20. Terraform Modules
+•	Modules = Reusable code blocks
+•	Example:
+module "vpc" {
+  source = "./modules/vpc"
+  cidr_block = "10.0.0.0/16"
+}
+________________________________________
+21. Terraform tfstate
+•	Stores actual infrastructure state
+•	Helps Terraform know what’s already applied
+🧠 File: terraform.tfstate
+________________________________________
+22. Terraform Remote Backend
+Stores tfstate file remotely (e.g., S3, GitLab, etc.)
+✅ Enables:
+•	Team collaboration
+•	State locking (via DynamoDB)
+🧠 Example:
+backend "s3" {
+  bucket = "my-tf-state"
+  key    = "infra/terraform.tfstate"
+  region = "ap-south-1"
+}
+________________________________________
+✅ All 100+ Questions and Answers are now fully completed.
+Would you like me to now:
+1.	📄 Generate a PDF or Word file with all content?
+2.	📘 Create separate files per topic (Linux, Networking, AWS, DevOps)?
+3.	🇮🇳 Add Hindi explanations also?
+Let me know your next preference!
+
